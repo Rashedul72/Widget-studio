@@ -1,0 +1,205 @@
+/* Custom scrollbar for control panel */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.control-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.control-panel::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.control-panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.control-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Custom slider styles */
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #6366f1;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.slider::-webkit-slider-thumb:hover {
+  background: #4f46e5;
+  transform: scale(1.1);
+}
+
+.slider::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #6366f1;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition: all 0.2s ease;
+}
+
+/* Custom focus styles */
+input:focus,
+select:focus,
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+/* Glassmorphism effect for cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+/* Animation keyframes */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.6);
+  }
+}
+
+/* Modern slider styling for all browsers */
+.slider-modern {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 0; /* hide native track height */
+  accent-color: transparent; /* hide native progress color in modern browsers */
+}
+
+/* Hide main page scrollbar; only the controls column scrolls */
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Primary-colored scrollbar for the control panel */
+.control-panel {
+  scrollbar-width: thin;              /* Firefox */
+  scrollbar-color: #60a5fa transparent; /* thumb track */
+}
+.control-panel::-webkit-scrollbar {
+  width: 8px;
+}
+.control-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+.control-panel::-webkit-scrollbar-thumb {
+  background: #60a5fa; /* blue-400 */
+  border-radius: 9999px;
+}
+.control-panel::-webkit-scrollbar-thumb:hover {
+  background: #3b82f6; /* blue-600 */
+}
+.slider-modern:focus {
+  outline: none;
+}
+.slider-modern::-webkit-slider-runnable-track {
+  height: 0; /* hide native track */
+  background: transparent;
+}
+.slider-modern::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 24px;
+  width: 24px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 2px solid #93c5fd; /* blue-300 */
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15);
+  margin-top: -11px; /* center thumb over our custom track */
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+.slider-modern:active::-webkit-slider-thumb {
+  transform: scale(1.06);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2);
+}
+.slider-modern::-moz-range-track {
+  height: 0;
+  background: transparent;
+}
+.slider-modern::-moz-range-progress {
+  height: 0;
+  background: transparent;
+}
+.slider-modern::-moz-range-thumb {
+  height: 24px;
+  width: 24px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 2px solid #93c5fd;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+.slider-modern:active::-moz-range-thumb {
+  transform: scale(1.06);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2);
+}
+
+/* Typewriter caret */
+.type-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: #60a5fa; /* blue-400 */
+  margin-left: 2px;
+  vertical-align: -0.1em;
+  animation: caret-blink 1s step-start infinite;
+}
+@keyframes caret-blink {
+  50% { opacity: 0; }
+}
+
+/* Mobile responsive design */
+@media (max-width: 1023px) {
+  .control-panel {
+    width: 100% !important;
+    max-width: none !important;
+    max-height: 60vh !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    border-left: none !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    z-index: 1000 !important;
+    padding: 1rem !important;
+  }
+  
+  .headline-widget {
+    margin-bottom: 250px !important;
+    padding: 2rem 2.5rem !important;
+    min-height: 150px !important;
+  }
+}
+
