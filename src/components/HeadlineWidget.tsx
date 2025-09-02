@@ -7,7 +7,7 @@ interface HeadlineWidgetProps {
   onSettingsChange: (settings: HeadlineSettings) => void;
 }
 
-const HeadlineWidget: React.FC<HeadlineWidgetProps> = ({ settings, onSettingsChange }) => {
+const HeadlineWidget: React.FC<HeadlineWidgetProps> = ({ settings }) => {
   // Rendering-only widget: editing is disabled; text is controlled via Control Panel
 
   // Editing handlers removed – text is updated from the Typography Controls
@@ -44,7 +44,7 @@ const HeadlineWidget: React.FC<HeadlineWidgetProps> = ({ settings, onSettingsCha
     return `drop-shadow(0 0 ${blur}px ${settings.effects.shadowColor})`;
   };
 
-  const getWordStyle = (word: string, index: number) => {
+  const getWordStyle = (_word: string, _index: number) => {
     const baseStyle: React.CSSProperties = {
       fontSize: `${settings.fontSize}px`,
       fontFamily: settings.fontFamily,

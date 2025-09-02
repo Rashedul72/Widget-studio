@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { HeadlineSettings } from '../../types';
+import type { HeadlineSettings } from '../../types';
 
 interface ExportControlsProps {
   settings: HeadlineSettings;

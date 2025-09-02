@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { HeadlineSettings } from '../../types';
+import type { HeadlineSettings } from '../../types';
 
 interface WordStylingControlsProps {
   settings: HeadlineSettings;

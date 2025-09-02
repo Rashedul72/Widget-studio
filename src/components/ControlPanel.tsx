@@ -6,7 +6,6 @@ import GradientControls from './controls/GradientControls';
 import EffectsControls from './controls/EffectsControls';
 import WordStylingControls from './controls/WordStylingControls';
 import PresetControls from './controls/PresetControls';
-import LivePreview from './LivePreview';
 import ExportControls from './controls/ExportControls';
 
 interface ControlPanelProps {
