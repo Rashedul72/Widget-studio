@@ -184,7 +184,7 @@ const HeadlineWidget: React.FC<HeadlineWidgetProps> = ({ settings }) => {
                     justifyContent: 'center',
                     gap: '4px',
                     lineHeight: settings.lineHeight,
-                    ...(settings.gradient.enabled ? getGradientStyle() : {})
+                    ...(settings.gradient.enabled && !settings.wordStyling.highlight && !settings.wordStyling.backgroundBlock ? getGradientStyle() : {})
                   };
 
                   const words = line.split(' ').filter(Boolean);
@@ -231,7 +231,7 @@ const HeadlineWidget: React.FC<HeadlineWidgetProps> = ({ settings }) => {
                     variants={containerVariants}
                     initial={initialState}
                     animate="visible"
-                    style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '4px', lineHeight: settings.lineHeight, ...(settings.gradient.enabled ? getGradientStyle() : {}) }}
+                    style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '4px', lineHeight: settings.lineHeight, ...(settings.gradient.enabled && !settings.wordStyling.highlight && !settings.wordStyling.backgroundBlock ? getGradientStyle() : {}) }}
                   >
                     {line.split(' ').filter(Boolean).map((word) => {
                       const element = (
@@ -255,7 +255,7 @@ const HeadlineWidget: React.FC<HeadlineWidgetProps> = ({ settings }) => {
               {(() => {
                 let globalIndex = 0;
                 return settings.text.split('\n').map((line, lineIndex) => (
-                  <div key={`line-${lineIndex}`} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '4px', lineHeight: settings.lineHeight, ...(settings.gradient.enabled ? getGradientStyle() : {}) }}>
+                  <div key={`line-${lineIndex}`} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '4px', lineHeight: settings.lineHeight, ...(settings.gradient.enabled && !settings.wordStyling.highlight && !settings.wordStyling.backgroundBlock ? getGradientStyle() : {}) }}>
                     {line.split(' ').filter(Boolean).map((word) => {
                       const element = (
                         <span

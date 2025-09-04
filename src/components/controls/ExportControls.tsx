@@ -19,7 +19,7 @@ const ExportControls: React.FC<ExportControlsProps> = ({ settings }) => {
       ? `text-shadow: 0 0 ${settings.effects.shadowBlur}px ${settings.effects.shadowColor};`
       : '';
 
-    const lineGradientStyle = settings.gradient.enabled
+    const lineGradientStyle = settings.gradient.enabled && !settings.wordStyling.highlight && !settings.wordStyling.backgroundBlock
       ? `background: linear-gradient(${direction}, ${settings.gradient.colors.start}, ${settings.gradient.colors.end}); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent;`
       : '';
 
@@ -31,7 +31,7 @@ const ExportControls: React.FC<ExportControlsProps> = ({ settings }) => {
         .split(' ')
         .filter(Boolean)
         .map((word) => {
-          const useSolidColor = !settings.gradient.enabled;
+          const useSolidColor = !(settings.gradient.enabled && !settings.wordStyling.highlight && !settings.wordStyling.backgroundBlock);
           const color = useSolidColor
             ? (settings.wordColorsEnabled && settings.wordColors[globalIndex]) || settings.textColor
             : 'inherit';
