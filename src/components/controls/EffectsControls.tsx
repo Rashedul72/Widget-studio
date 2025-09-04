@@ -29,6 +29,13 @@ const EffectsControls: React.FC<EffectsControlsProps> = ({ settings, onSettingsC
     });
   };
 
+  const handleHoverGlowColorChange = (color: string) => {
+    onSettingsChange({
+      ...settings,
+      effects: { ...settings.effects, hoverGlowColor: color }
+    });
+  };
+
   return (
     <motion.div
       className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm"
@@ -91,6 +98,38 @@ const EffectsControls: React.FC<EffectsControlsProps> = ({ settings, onSettingsC
           </div>
         ))}
       </div>
+
+      {/* Hover Glow Color Controls */}
+      {settings.effects.hoverGlow && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.3 }}
+          className="mt-4 pt-4 border-t border-gray-300"
+        >
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Hover Glow Color
+            </label>
+            <div className="flex items-center space-x-2">
+              <input
+                type="color"
+                value={settings.effects.hoverGlowColor}
+                onChange={(e) => handleHoverGlowColorChange(e.target.value)}
+                className="w-10 h-10 rounded-none border border-gray-300 cursor-pointer"
+              />
+              <input
+                type="text"
+                value={settings.effects.hoverGlowColor}
+                onChange={(e) => handleHoverGlowColorChange(e.target.value)}
+                className="w-28 h-10 px-2 py-1 bg-white border border-gray-300 rounded-lg text-gray-800 text-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="#000000"
+              />
+            </div>
+          </div>
+        </motion.div>
+      )}
 
       {/* Text Shadow Controls */}
       {settings.effects.textShadow && (

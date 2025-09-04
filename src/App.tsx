@@ -11,8 +11,19 @@ const defaultSettings: HeadlineSettings = {
   fontSize: 64,
   fontFamily: 'Inter',
   fontWeight: 700,
+  textColor: '#1f2937',
+  wordColors: {},
+  wordColorsEnabled: false,
+  letterSpacing: 0,
+  lineHeight: 1.2,
+  textTransform: 'none',
+  textOutline: {
+    enabled: false,
+    width: 2,
+    color: '#000000'
+  },
   gradient: {
-    enabled: true,
+    enabled: false,
     direction: 'right',
     colors: {
       start: '#6366f1',
@@ -23,6 +34,7 @@ const defaultSettings: HeadlineSettings = {
     fadeIn: true,
     fadeInMode: 'fade',
     hoverGlow: true,
+    hoverGlowColor: '#60a5fa',
     perLetterAnimation: false,
     textShadow: true,
     shadowColor: '#6366f1',
@@ -34,7 +46,15 @@ const defaultSettings: HeadlineSettings = {
     backgroundBlock: false,
     highlightColor: '#fbbf24',
     underlineColor: '#ef4444',
-    blockColor: '#3b82f6'
+    blockColor: '#3b82f6',
+    blockBorderRadius: 6,
+    blockBoxShadow: {
+      enabled: false,
+      x: 0,
+      y: 2,
+      blur: 4,
+      color: '#000000'
+    }
   }
 };
 

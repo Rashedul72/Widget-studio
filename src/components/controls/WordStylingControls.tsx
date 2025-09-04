@@ -117,24 +117,159 @@ const WordStylingControls: React.FC<WordStylingControlsProps> = ({ settings, onS
           )}
 
           {settings.wordStyling.backgroundBlock && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Block Color
-              </label>
-              <div className="flex items-center space-x-2">
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Block Color
+                </label>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="color"
+                    value={settings.wordStyling.blockColor}
+                    onChange={(e) => handleColorChange('blockColor', e.target.value)}
+                    className="w-12 h-10 rounded-lg border border-gray-300 cursor-pointer"
+                  />
+                  <input
+                    type="text"
+                    value={settings.wordStyling.blockColor}
+                    onChange={(e) => handleColorChange('blockColor', e.target.value)}
+                    className="flex-1 px-3 py-2 bg-white border border-gray-300 rounded-lg text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="#0000ff"
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Border Radius: {settings.wordStyling.blockBorderRadius}px
+                </label>
                 <input
-                  type="color"
-                  value={settings.wordStyling.blockColor}
-                  onChange={(e) => handleColorChange('blockColor', e.target.value)}
-                  className="w-12 h-10 rounded-lg border border-gray-300 cursor-pointer"
+                  type="range"
+                  min="0"
+                  max="20"
+                  step="1"
+                  value={settings.wordStyling.blockBorderRadius}
+                  onChange={(e) => onSettingsChange({
+                    ...settings,
+                    wordStyling: { ...settings.wordStyling, blockBorderRadius: Number(e.target.value) }
+                  })}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
                 />
-                <input
-                  type="text"
-                  value={settings.wordStyling.blockColor}
-                  onChange={(e) => handleColorChange('blockColor', e.target.value)}
-                  className="flex-1 px-3 py-2 bg-white border border-gray-300 rounded-lg text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="#0000ff"
-                />
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="text-sm font-medium text-gray-700">Box Shadow</label>
+                  <button
+                    type="button"
+                    onClick={() => onSettingsChange({
+                      ...settings,
+                      wordStyling: {
+                        ...settings.wordStyling,
+                        blockBoxShadow: { ...settings.wordStyling.blockBoxShadow, enabled: !settings.wordStyling.blockBoxShadow.enabled }
+                      }
+                    })}
+                    className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors duration-200 ${
+                      settings.wordStyling.blockBoxShadow.enabled ? 'bg-blue-600' : 'bg-gray-300'
+                    }`}
+                  >
+                    <span
+                      className={`inline-block h-3 w-3 transform rounded-full bg-white transition-transform duration-200 ${
+                        settings.wordStyling.blockBoxShadow.enabled ? 'translate-x-5' : 'translate-x-1'
+                      }`}
+                    />
+                  </button>
+                </div>
+                {settings.wordStyling.blockBoxShadow.enabled && (
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <label className="block text-xs text-gray-600 mb-1">X: {settings.wordStyling.blockBoxShadow.x}px</label>
+                        <input
+                          type="range"
+                          min="-10"
+                          max="10"
+                          step="1"
+                          value={settings.wordStyling.blockBoxShadow.x}
+                          onChange={(e) => onSettingsChange({
+                            ...settings,
+                            wordStyling: {
+                              ...settings.wordStyling,
+                              blockBoxShadow: { ...settings.wordStyling.blockBoxShadow, x: Number(e.target.value) }
+                            }
+                          })}
+                          className="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-gray-600 mb-1">Y: {settings.wordStyling.blockBoxShadow.y}px</label>
+                        <input
+                          type="range"
+                          min="-10"
+                          max="10"
+                          step="1"
+                          value={settings.wordStyling.blockBoxShadow.y}
+                          onChange={(e) => onSettingsChange({
+                            ...settings,
+                            wordStyling: {
+                              ...settings.wordStyling,
+                              blockBoxShadow: { ...settings.wordStyling.blockBoxShadow, y: Number(e.target.value) }
+                            }
+                          })}
+                          className="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-xs text-gray-600 mb-1">Blur: {settings.wordStyling.blockBoxShadow.blur}px</label>
+                      <input
+                        type="range"
+                        min="0"
+                        max="20"
+                        step="1"
+                        value={settings.wordStyling.blockBoxShadow.blur}
+                        onChange={(e) => onSettingsChange({
+                          ...settings,
+                          wordStyling: {
+                            ...settings.wordStyling,
+                            blockBoxShadow: { ...settings.wordStyling.blockBoxShadow, blur: Number(e.target.value) }
+                          }
+                        })}
+                        className="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs text-gray-600 mb-1">Shadow Color</label>
+                      <div className="flex items-center space-x-2">
+                        <input
+                          type="color"
+                          value={settings.wordStyling.blockBoxShadow.color}
+                          onChange={(e) => onSettingsChange({
+                            ...settings,
+                            wordStyling: {
+                              ...settings.wordStyling,
+                              blockBoxShadow: { ...settings.wordStyling.blockBoxShadow, color: e.target.value }
+                            }
+                          })}
+                          className="w-8 h-8 rounded border border-gray-300 cursor-pointer"
+                        />
+                        <input
+                          type="text"
+                          value={settings.wordStyling.blockBoxShadow.color}
+                          onChange={(e) => onSettingsChange({
+                            ...settings,
+                            wordStyling: {
+                              ...settings.wordStyling,
+                              blockBoxShadow: { ...settings.wordStyling.blockBoxShadow, color: e.target.value }
+                            }
+                          })}
+                          className="flex-1 px-2 py-1 bg-white border border-gray-300 rounded text-gray-800 text-xs focus:outline-none focus:ring-1 focus:ring-blue-500"
+                          placeholder="#000000"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}

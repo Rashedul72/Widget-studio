@@ -10,58 +10,88 @@ const ExportControls: React.FC<ExportControlsProps> = ({ settings }) => {
   const [copied, setCopied] = useState<string | null>(null);
 
   const generateEmbedCode = () => {
-    const gradientStyle = settings.gradient.enabled 
-      ? `background: linear-gradient(${
-          settings.gradient.direction === 'right' ? 'to right' :
-          settings.gradient.direction === 'left' ? 'to left' :
-          settings.gradient.direction === 'down' ? 'to bottom' : 'to top'
-        }, ${settings.gradient.colors.start}, ${settings.gradient.colors.end});
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;`
-      : '';
+    const direction =
+      settings.gradient.direction === 'right' ? 'to right' :
+      settings.gradient.direction === 'left' ? 'to left' :
+      settings.gradient.direction === 'down' ? 'to bottom' : 'to top';
 
-    const textShadowStyle = settings.effects.textShadow 
+    const containerTextShadow = settings.effects.textShadow
       ? `text-shadow: 0 0 ${settings.effects.shadowBlur}px ${settings.effects.shadowColor};`
       : '';
 
-    const wordStylingStyle = settings.wordStyling.highlight 
-      ? `background-color: ${settings.wordStyling.highlightColor}; padding: 2px 4px; border-radius: 4px;`
-      : settings.wordStyling.underline
-      ? `text-decoration: underline; text-decoration-color: ${settings.wordStyling.underlineColor}; text-decoration-thickness: 2px;`
-      : settings.wordStyling.backgroundBlock
-      ? `background-color: ${settings.wordStyling.blockColor}; padding: 4px 8px; border-radius: 6px; display: inline-block; margin: 0 2px;`
+    const lineGradientStyle = settings.gradient.enabled
+      ? `background: linear-gradient(${direction}, ${settings.gradient.colors.start}, ${settings.gradient.colors.end}); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent;`
       : '';
 
-    return `<!-- Headline Widget -->
+    // (removed unused helpers wordBaseStyle/wordStyling)
+
+    let globalIndex = 0;
+    const linesHtml = settings.text.split('\n').map((line) => {
+      const wordsHtml = line
+        .split(' ')
+        .filter(Boolean)
+        .map((word) => {
+          const useSolidColor = !settings.gradient.enabled;
+          const color = useSolidColor
+            ? (settings.wordColorsEnabled && settings.wordColors[globalIndex]) || settings.textColor
+            : 'inherit';
+          
+          // Apply word styling properly
+          let wordStyle = '';
+          wordStyle += `letter-spacing: ${settings.letterSpacing}px; text-transform: ${settings.textTransform};`;
+          
+          if (settings.textOutline.enabled) {
+            wordStyle += `-webkit-text-stroke: ${settings.textOutline.width}px ${settings.textOutline.color};`;
+          }
+          
+          if (settings.wordStyling.highlight) {
+            wordStyle += `background-color: ${settings.wordStyling.highlightColor}; padding: 2px 4px; border-radius: 4px;`;
+          } else if (settings.wordStyling.underline) {
+            wordStyle += `text-decoration: underline; text-decoration-color: ${settings.wordStyling.underlineColor}; text-decoration-thickness: 2px;`;
+          } else if (settings.wordStyling.backgroundBlock) {
+            wordStyle += `background-color: ${settings.wordStyling.blockColor}; padding: 4px 8px; border-radius: ${settings.wordStyling.blockBorderRadius}px; display: inline-block; margin: 0 2px;`;
+            if (settings.wordStyling.blockBoxShadow.enabled) {
+              wordStyle += `box-shadow: ${settings.wordStyling.blockBoxShadow.x}px ${settings.wordStyling.blockBoxShadow.y}px ${settings.wordStyling.blockBoxShadow.blur}px ${settings.wordStyling.blockBoxShadow.color};`;
+            }
+          }
+          
+          if (useSolidColor && color) {
+            wordStyle += `color: ${color};`;
+          }
+          
+          const html = `<span style="${wordStyle}">${word}</span>`;
+          globalIndex += 1;
+          return html;
+        })
+        .join(' ');
+      return `<div style="display:flex; flex-wrap:wrap; justify-content:center; gap:4px; line-height:${settings.lineHeight}; ${lineGradientStyle}">${wordsHtml}</div>`;
+    }).join('\n');
+
+    const hoverGlowCss = settings.effects.hoverGlow
+      ? `filter: drop-shadow(0 0 ${Math.max(10, settings.effects.shadowBlur + 8)}px ${settings.effects.hoverGlowColor});`
+      : '';
+
+    return `<!-- Headline Widget Export -->
 <div class="headline-widget" style="
   font-size: ${settings.fontSize}px;
   font-family: '${settings.fontFamily}', sans-serif;
   font-weight: ${settings.fontWeight};
   text-align: center;
   line-height: 1.2;
-  ${gradientStyle}
-  ${textShadowStyle}
+  ${containerTextShadow}
 ">
-  <span style="${wordStylingStyle}">${settings.text}</span>
+  ${linesHtml}
 </div>
 
 <style>
   .headline-widget {
-    cursor: pointer;
     user-select: none;
-    padding: 20px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
+    display: block;
+    width: max-content;
+    margin: 0 auto;
+    transition: filter .2s ease;
   }
-  
-  .headline-widget:hover {
-    transform: scale(1.05);
-    ${settings.effects.hoverGlow ? 'filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.5));' : ''}
-  }
+  .headline-widget:hover { ${hoverGlowCss} }
 </style>`;
   };
 
