@@ -64,18 +64,10 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-100">
       <Navbar />
-      {/* Three-column layout: left controls (scroll), right sticky preview */}
-      <div className="h-[calc(100vh-64px)] overflow-hidden grid grid-cols-3 gap-0">
-        {/* Left: Controls (scrollable only column) */}
-        <div className="col-span-1 h-full overflow-y-auto">
-          <ControlPanel 
-            settings={settings} 
-            onSettingsChange={setSettings} 
-          />
-        </div>
-
-        {/* Right: Sticky Preview spanning two columns */}
-        <div className="col-span-2 h-full p-6 flex items-center justify-center">
+      {/* Desktop: 3 cols; Mobile: stack with preview first */}
+      <div className="md:h-[calc(100vh-64px)] md:overflow-hidden grid grid-cols-1 md:grid-cols-3 gap-0">
+        {/* Preview (mobile first), sticky area on desktop */}
+        <div className="order-1 md:order-2 md:col-span-2 h-auto md:h-full p-4 md:p-6 flex items-center justify-center max-h-[70vh] overflow-auto md:max-h-none md:overflow-visible">
           <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -87,6 +79,14 @@ function App() {
               onSettingsChange={setSettings} 
             />
           </motion.div>
+        </div>
+
+        {/* Controls (scrollable column) */}
+        <div className="order-2 md:order-1 col-span-1 h-auto md:h-full md:overflow-y-auto">
+          <ControlPanel 
+            settings={settings} 
+            onSettingsChange={setSettings} 
+          />
         </div>
       </div>
     </div>

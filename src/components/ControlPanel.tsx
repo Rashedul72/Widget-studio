@@ -21,10 +21,10 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ settings, onSettingsChange 
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
     >
-      <div className="p-12">
+      <div className="p-4 md:p-12">
 
         {/* Controls Stack (single column) */}
-        <div className="grid grid-cols-1 gap-8 mb-12">
+        <div className="grid grid-cols-1 gap-6 md:gap-8 mb-10 md:mb-12">
           {/* <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}

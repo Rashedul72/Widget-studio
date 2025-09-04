@@ -133,7 +133,7 @@ const HeadlineWidget: React.FC<HeadlineWidgetProps> = ({ settings }) => {
   return (
     <motion.div
       key={`widget-${settings.fontSize}-${settings.fontFamily}-${settings.fontWeight}-${settings.textColor}-${settings.text}-${settings.gradient.enabled}-${settings.gradient.direction}-${settings.gradient.colors.start}-${settings.gradient.colors.end}`}
-      className="mx-auto my-6 w-full cursor-default select-none text-center p-12 rounded-3xl bg-white ring-1 ring-gray-200 min-h-[220px] flex items-center justify-center"
+      className="mx-auto my-4 md:my-6 w-full cursor-default select-none text-center p-6 md:p-12 rounded-3xl bg-white ring-1 ring-gray-200 min-h-[180px] md:min-h-[220px] flex items-center justify-center"
       variants={containerVariants}
       initial={initialState}
       animate="visible"
